@@ -1,4 +1,5 @@
 ﻿using Bibliotek_Labb1.Models;
+using Bibliotek_Labb1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,21 +12,16 @@ namespace Bibliotek_Labb1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IBookRepository _bookRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBookRepository bookRepository)
         {
-            _logger = logger;
+            _bookRepository = bookRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(await _bookRepository.GetAllBooks());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

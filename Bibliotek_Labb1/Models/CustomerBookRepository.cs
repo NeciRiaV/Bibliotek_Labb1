@@ -14,17 +14,10 @@ namespace Bibliotek_Labb1.Models
         {
             _appDbContext = appDbContext;
         }
-        public IEnumerable<CustomerBook> GetWholeLog
+        public async Task<IEnumerable<CustomerBook>> GetWholeLog()
         {
-            get
-            {
-                return _appDbContext.CustomerBooks;
-            }
+             return await _appDbContext.CustomerBooks.ToListAsync();
         }
 
-        public CustomerBook GetCustomerLogById(Customer customerId, Book bookId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -7,10 +7,11 @@ namespace Bibliotek_Labb1.Models
 {
     interface ICustomerRepository
     {
-        IEnumerable<Customer> GetAllCutomers { get; }
-        Customer GetCustomerBytId(int customerid);
-        Customer AddCustomer(Customer customer);
-        Customer DeleteCustomer(int customerid);
-        Customer EditCustomer(int customerid);
+        Task<IEnumerable<Customer>> GetAllCutomers();
+        Task<Customer> GetCustomerBytId(int customerid);
+        Task<Customer> AddCustomer(Customer customer);
+        Task<Customer> DeleteCustomer(int customerid);
+        Task<Customer> EditCustomer(Customer customer);
+        Task<IEnumerable<Customer>> GetCustomerLogById(int customer);
     }
 }

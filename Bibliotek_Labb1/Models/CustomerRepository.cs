@@ -14,32 +14,63 @@ namespace Bibliotek_Labb1.Models
         {
             _appDbContext = appDbContext;
         }
-        public IEnumerable<Customer> GetAllCutomers
+        public async Task<IEnumerable<Customer>> GetAllCutomers()
         {
-            get
+            return await _appDbContext.Customers.ToListAsync();    
+        }
+
+        public async Task<Customer> AddCustomer(Customer customer)
+        {
+            var newCustomer = await _appDbContext.Customers.AddAsync(customer);
+            await _appDbContext.SaveChangesAsync();
+            return newCustomer.Entity;
+        }
+
+        public async Task<Customer> DeleteCustomer(int customerid)
+        {
+            var deletedCustomer = await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == customerid);
+            if (deletedCustomer != null)
             {
-                return _appDbContext.Customers;
+                _appDbContext.Remove(deletedCustomer);
+                await _appDbContext.SaveChangesAsync();
+                return deletedCustomer;
             }
+            return null;
         }
 
-        public Customer AddCustomer(Customer customer)
+        public async Task<Customer> EditCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            var result = await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == customer.CustomerID);
+            if (result != null)
+            {
+                result.FullName = customer.FullName;
+                result.Email = customer.Email;
+                result.PhoneNumber = customer.PhoneNumber;
+                result.Adress = customer.Adress;
+                result.City = customer.City;
+                result.ZipCode = customer.ZipCode;
+
+                await _appDbContext.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
 
-        public Customer DeleteCustomer(int customerid)
+        public async Task<Customer> GetCustomerBytId(int customerid)
         {
-            throw new NotImplementedException();
+            return await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == customerid);
         }
 
-        public Customer EditCustomer(int customerid)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Customer GetCustomerBytId(int customerid)
+
+        public async Task<IEnumerable<Customer>> GetCustomerLogById(int customerid)
         {
-            return _appDbContext.Customers.FirstOrDefault(c => c.CustomerID == customerid);
+            IQueryable<Customer> customer = _appDbContext.Customers.Include(cb => cb.CustomerBook);
+            if (!customer.Equals(customerid))
+            {
+                customer = customer.Where(c => c.CustomerID == customerid);
+            }
+            return await customer.ToListAsync();
         }
     }
 }

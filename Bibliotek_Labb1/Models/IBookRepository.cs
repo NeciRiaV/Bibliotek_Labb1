@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace Bibliotek_Labb1.Models
 {
-    interface IBookRepository
+    public interface IBookRepository
     {
-        IEnumerable<Book> GetAllBooks { get; }
-        Book GetBookById(int bookid);
+        Task<IEnumerable<Book>> GetAllBooks();
+        Task<IEnumerable<Book>> GetAllBooksInStock();
+        Task<Book> GetBookById(int bookid);
+        Task<Book> GetBookByName(string bookname);
+        Task<Book> GetBookByAuthor(string bookauthor);
+
     }
 }
