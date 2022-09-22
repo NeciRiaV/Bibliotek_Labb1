@@ -19,15 +19,14 @@ namespace Bibliotek_Labb1.Controllers
             _bookRepository = bookRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _bookRepository.GetAllBooks());
+            var homeViewModel = new HomeViewModel
+            {
+                BooksInStock = _bookRepository.GetAllBooksInStock
+            };
+            return View(homeViewModel);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

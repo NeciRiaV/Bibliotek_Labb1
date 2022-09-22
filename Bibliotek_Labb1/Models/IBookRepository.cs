@@ -7,9 +7,9 @@ namespace Bibliotek_Labb1.Models
 {
     public interface IBookRepository
     {
-        Task<IEnumerable<Book>> GetAllBooks();
-        Task<IEnumerable<Book>> GetAllBooksInStock();
-        Task<Book> GetBookById(int bookid);
+        IEnumerable<Book> GetAllBooks { get; }
+        IEnumerable<Book> GetAllBooksInStock { get; }
+        Book GetBookById(int bookid);
         Task<Book> GetBookByName(string bookname);
         Task<Book> GetBookByAuthor(string bookauthor);
 

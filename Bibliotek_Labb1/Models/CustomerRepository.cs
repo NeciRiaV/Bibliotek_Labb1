@@ -14,9 +14,13 @@ namespace Bibliotek_Labb1.Models
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<Customer>> GetAllCutomers()
+        public IEnumerable<Customer> GetAllCustomers
         {
-            return await _appDbContext.Customers.ToListAsync();    
+            get
+            {
+                return _appDbContext.Customers;
+
+            }
         }
 
         public async Task<Customer> AddCustomer(Customer customer)
@@ -56,9 +60,9 @@ namespace Bibliotek_Labb1.Models
             return null;
         }
 
-        public async Task<Customer> GetCustomerBytId(int customerid)
+        public Customer GetCustomerBytId(int customerid)
         {
-            return await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == customerid);
+            return _appDbContext.Customers.FirstOrDefault(c => c.CustomerID == customerid);
         }
 
 

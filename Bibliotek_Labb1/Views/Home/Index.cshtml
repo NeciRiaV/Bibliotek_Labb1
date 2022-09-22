@@ -1,9 +1,9 @@
 ﻿@model HomeViewModel
 
-    <h2>Book Inventory</h2>
+    <h2>Available Books</h2>
 
     <div class="row">
-        @foreach (var book in Model.BookInventory)
+        @foreach (var book in Model.BooksInStock)
         {
             <partial name="_books" model="book"/>
         }

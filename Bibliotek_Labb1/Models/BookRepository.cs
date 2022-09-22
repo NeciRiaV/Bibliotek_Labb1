@@ -13,20 +13,31 @@ namespace Bibliotek_Labb1.Models
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<Book>> GetAllBooks()
+        public IEnumerable<Book> GetAllBooks
         {
-            return await _appDbContext.Books.ToListAsync();
+            get
+            {
+                return _appDbContext.Books;
+            }
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooksInStock()
+        //public async Task<IEnumerable<Book>> GetAllBooksInStock()
+        //{
+        //    IQueryable<Book> instock = _appDbContext.Books.Where(b => b.IsOnLoan == false);
+        //    return await instock.ToListAsync();
+        //}
+
+        public IEnumerable<Book> GetAllBooksInStock
         {
-            IQueryable<Book> instock = _appDbContext.Books.Where(b => b.IsOnLoan == false);
-            return await instock.ToListAsync();
+            get
+            {
+                return _appDbContext.Books.Where(b => b.IsOnLoan == false);
+            }
         }
 
-        public async Task<Book> GetBookById(int bookid)
+        public Book GetBookById(int bookid)
         {
-            return await _appDbContext.Books.FirstOrDefaultAsync(b => b.BookID == bookid);
+            return _appDbContext.Books.FirstOrDefault(b => b.BookID == bookid);
         }
 
         public async Task<Book> GetBookByName(string bookname)

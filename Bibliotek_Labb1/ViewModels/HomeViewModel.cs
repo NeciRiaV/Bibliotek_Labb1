@@ -8,6 +8,6 @@ namespace Bibliotek_Labb1.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<Book> BookInventory { get; set; }
+        public IEnumerable<Book> BooksInStock { get; set; }
     }
 }

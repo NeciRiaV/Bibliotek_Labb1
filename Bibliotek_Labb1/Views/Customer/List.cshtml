@@ -1,2 +1,21 @@
-﻿@model BookListViewModel
+﻿@model IEnumerable<Customer>
+
+    <html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Bi-Biblioteket</title>
+    </head>
+    <body>
+        @foreach (var customer in Model)
+        {
+            <div>
+                <h2>@customer.CustomerID</h2>
+                <h2>@customer.FullName</h2>
+                <h4><a asp-controller="Customer" asp-action="CustomerInfo" asp-route-id="@customer.CustomerID">More Info</a></h4>
+            </div>
+        }
+    </body>
+    </html>
 

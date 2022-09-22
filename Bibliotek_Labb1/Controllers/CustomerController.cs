@@ -11,50 +11,45 @@ namespace Bibliotek_Labb1.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly ICustomerBookRepository _customerBookRepository;
 
-        private CustomerController(ICustomerRepository customerRepository, ICustomerBookRepository customerBookRepository)
+        public CustomerController(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
-            _customerBookRepository = customerBookRepository;
         }
 
-        public ViewResult List(string fullname)
+        public ViewResult List()
         {
-            IEnumerable<Customer> customers;
-            if (string.IsNullOrEmpty(fullname))
-            {
-                customers = _customerRepository.GetAllCutomers().OrderBy(c => c.CustomerID);
-            }
-            else
-            {
-                customers = _customerRepository.GetAllCutomers().Where(c => c.FullName == fullname);
-            }
-
-            return View(new CustomerListViewModel
-            {
-                Customers = customers
-            });
+            return View(_customerRepository.GetAllCustomers);
         }
 
-        public IActionResult AddOrEdit(int id)
+        public IActionResult CustomerInfo(int id)
         {
-            if (id == 0)
+            var customer = _customerRepository.GetCustomerBytId(id);
+            if (customer == null)
             {
-                return View(new Customer());
+                return NotFound();
             }
-            else
-            {
-                return View(_customerRepository.GetAllCutomers().FindAsync(id));
-            }
+            return View(customer);
         }
-        
-        public IActionResult EditEmployee()
-        {
-            if (true)
-            {
 
-            }
-        }
+        //public IActionResult AddOrEdit(int id)
+        //{
+        //    if (id == 0)
+        //    {
+        //        return View(new Customer());
+        //    }
+        //    else
+        //    {
+        //        return View(_customerRepository.GetAllCutomers().FindAsync(id));
+        //    }
+        //}
+
+        //public IActionResult EditEmployee()
+        //{
+        //    if (true)
+        //    {
+
+        //    }
+        //}
     }
 }
