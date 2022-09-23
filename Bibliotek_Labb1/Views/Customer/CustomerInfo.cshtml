@@ -1,4 +1,4 @@
-﻿@model Customer
+﻿@model Customer 
 
 <div class="figure-caption">
     <h3>@Model.CustomerID</h3>
@@ -8,4 +8,5 @@
     <h3>@Model.ZipCode</h3>
     <h3>@Model.PhoneNumber</h3>
     <h3>@Model.Email</h3>
+    <h4><a asp-controller="Customer" asp-action="CustomerBookLog" asp-route-id="@Model.CustomerID">List of books borrowed</a></h4>
 </div>

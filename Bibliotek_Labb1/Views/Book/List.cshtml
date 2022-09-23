@@ -1,20 +1,47 @@
 ﻿@model IEnumerable<Book>
 
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bi-Biblioteket</title>
-</head>
-<body>
-    @foreach (var book in Model)
-    {
-        <div>
-            <h2>@book.BookName</h2>
-            <h3>@book.Author</h3>
-            <h3><a asp-controller="Book" asp-action="Details" asp-route-id="@book.BookID">@book.BookName</a></h3>
-        </div>
-    }
-</body>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <h4>Cover</h4>
+                    </th>
+                    <th>
+                        <h4>Name</h4>
+                    </th>
+                    <th>
+                        <h4>Author</h4>
+                    </th>
+                    <th>
+                        <h4>Details</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@book.ImageThumbnailUrl" alt="@book.BookName" />
+                        </td>
+                        <td>
+                            <h5>@book.BookName</h5>
+                        </td>
+                        <td>
+                            <h5>@book.Author</h5>
+                        </td>
+                        <td>
+                            <a asp-controller="Book" asp-action="Details" asp-route-id="@book.BookID" class="btn btn-sm btn-success">
+                                <i class="fa-solid fa-info"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 </html>

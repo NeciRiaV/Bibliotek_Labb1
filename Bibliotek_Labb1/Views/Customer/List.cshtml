@@ -1,21 +1,43 @@
 ﻿@model IEnumerable<Customer>
 
-    <html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Bi-Biblioteket</title>
-    </head>
-    <body>
-        @foreach (var customer in Model)
-        {
-            <div>
-                <h2>@customer.CustomerID</h2>
-                <h2>@customer.FullName</h2>
-                <h4><a asp-controller="Customer" asp-action="CustomerInfo" asp-route-id="@customer.CustomerID">More Info</a></h4>
-            </div>
-        }
-    </body>
-    </html>
+<html>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <h4>ID</h4>
+                    </th>
+                    <th>
+                        <h4>Full Name</h4>
+                    </th>
+                    <th>
+                        <h4>Details</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                <tr>
+                    <td>
+                        <h5>@customer.CustomerID</h5>
+                    </td>
+                    <td>
+                        <h5>@customer.FullName</h5>
+                    </td>
+                    <td>
+                        <a asp-controller="Customer" asp-action="CustomerInfo" asp-route-id="@customer.CustomerID" class="btn btn-sm btn-success">
+                            <i class="fa-solid fa-info"></i>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>
+
 

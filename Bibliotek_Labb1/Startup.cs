@@ -26,15 +26,17 @@ namespace Bibliotek_Labb1
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<AppDbContext>(options => 
+            services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
+
+            services.AddControllersWithViews();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<ICustomerBookRepository, CustomerBookRepository>();
 
-            services.AddControllersWithViews();
-
+            //services.AddHttpContextAccessor();
+            //services.AddSession();
             services.AddRazorPages();
         }
 
@@ -53,6 +55,7 @@ namespace Bibliotek_Labb1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //app.UseSession();
 
             app.UseRouting();
 

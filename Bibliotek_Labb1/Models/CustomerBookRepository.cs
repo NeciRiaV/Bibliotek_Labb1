@@ -14,10 +14,12 @@ namespace Bibliotek_Labb1.Models
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<CustomerBook>> GetWholeLog()
+        public IEnumerable<CustomerBook> Loans
         {
-             return await _appDbContext.CustomerBooks.ToListAsync();
+            get
+            {
+             return _appDbContext.CustomerBooks;
+            }
         }
-
     }
 }

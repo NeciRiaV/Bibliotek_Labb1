@@ -12,6 +12,6 @@ namespace Bibliotek_Labb1.Models
         Task<Customer> AddCustomer(Customer customer);
         Task<Customer> DeleteCustomer(int customerid);
         Task<Customer> EditCustomer(Customer customer);
-        Task<IEnumerable<Customer>> GetCustomerLogById(int customer);
+        //IEnumerable<Customer> GetCustomerLogById(int customer);
     }
 }

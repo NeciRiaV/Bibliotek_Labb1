@@ -22,7 +22,7 @@ namespace Bibliotek_Labb1.Models
 
             }
         }
-
+        
         public async Task<Customer> AddCustomer(Customer customer)
         {
             var newCustomer = await _appDbContext.Customers.AddAsync(customer);
@@ -65,16 +65,24 @@ namespace Bibliotek_Labb1.Models
             return _appDbContext.Customers.FirstOrDefault(c => c.CustomerID == customerid);
         }
 
-
-
-        public async Task<IEnumerable<Customer>> GetCustomerLogById(int customerid)
+        public IEnumerable<Customer> GetCustomerLog
         {
-            IQueryable<Customer> customer = _appDbContext.Customers.Include(cb => cb.CustomerBook);
-            if (!customer.Equals(customerid))
+            get
             {
-                customer = customer.Where(c => c.CustomerID == customerid);
+                return _appDbContext.Customers;
             }
-            return await customer.ToListAsync();
         }
+
+
+        //public IEnumerable<Customer> GetCustomerLogById(int customerid)
+        //{
+        //    IQueryable<Customer> customer = _appDbContext.Customers.Include(cb => cb.CustomerBook).Where(cb => cb.CustomerID == customerid);
+        //    if (!customer.Equals(customerid))
+        //    {
+        //        customer = customer.Where(c => c.CustomerID == customerid);
+
+        //    }
+        //    return customer.ToList();
+        //}
     }
 }

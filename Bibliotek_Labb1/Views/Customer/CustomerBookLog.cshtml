@@ -1,0 +1,39 @@
+﻿@model CustomerLogViewModel
+
+<div class="row">
+    <div class="col-md-16 offset-md--2">
+        <h1>Loans</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Loan Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var loan in Model.CustomerLoans)
+                {
+                    <tr>
+                        <td>
+                            <p>@loan.Book.BookName</p>
+                        </td>
+                        <td>
+                            <p>@loan.BookBorrowed.ToString("dd/MM/yyyy")</p>
+                        </td>
+                        <td>
+                            @if (loan.Book.IsOnLoan == true)
+                            {
+                                <p>Book is on loan</p>
+                            }
+                            else
+                            {
+                                <p>Book returned</p>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

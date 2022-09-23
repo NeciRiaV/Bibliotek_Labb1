@@ -4,7 +4,18 @@
         <img src="@Model.ImageThumbnailUrl" alt="@Model.BookName" />
         <div class="figure-caption">
             <h2>@Model.BookName</h2>
-            <h3>@Model.Author</h3>
+            <h4>@Model.Author</h4>
             <p>@Model.Description</p>
+            <tr>
+                <h5>Status: </h5>
+                @if (Model.IsOnLoan == true)
+                {
+                    <h5>On Loan</h5>
+                }
+                else
+                {
+                    <h5>In Stock</h5>
+                }
+            </tr>
         </div>
     </div>

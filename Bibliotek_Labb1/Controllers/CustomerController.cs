@@ -32,17 +32,33 @@ namespace Bibliotek_Labb1.Controllers
             return View(customer);
         }
 
-        //public IActionResult AddOrEdit(int id)
+        //public IActionResult CustomerBookLog(int id)
         //{
-        //    if (id == 0)
+        //    var cus = _customerRepository.GetCustomerBytId(id);
+        //    var customerlogViewModel = new CustomerLogViewModel
         //    {
-        //        return View(new Customer());
-        //    }
-        //    else
+        //        GetCustomer = _customerRepository.GetCustomerBytId(id),
+        //        GetCustomerLog = _customerRepository.
+        //    };
+        //    var customer = _customerRepository.GetCustomerLogById(id);
+        //    if (customer == null)
         //    {
-        //        return View(_customerRepository.GetAllCutomers().FindAsync(id));
+        //        return NotFound();
         //    }
+        //    return View(customer);
         //}
+
+        public IActionResult Add(int id)
+        {
+            if (id == 0)
+            {
+                return View(new Customer());
+            }
+            else
+            {
+                return View(_customerRepository.GetCustomerBytId(id));
+            }
+        }
 
         //public IActionResult EditEmployee()
         //{

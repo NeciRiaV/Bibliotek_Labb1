@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Bibliotek_Labb1.Models
 {
-    interface ICustomerBookRepository
+    public interface ICustomerBookRepository
     {
-        Task<IEnumerable<CustomerBook>> GetWholeLog();
+        public IEnumerable<CustomerBook> Loans { get; }
     }
 }

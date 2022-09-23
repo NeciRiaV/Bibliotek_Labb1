@@ -1,10 +1,48 @@
 ﻿@model HomeViewModel
 
-    <h2>Available Books</h2>
-
-    <div class="row">
-        @foreach (var book in Model.BooksInStock)
-        {
-            <partial name="_books" model="book"/>
-        }
+<h2 class="text-center">Available Books</h2>
+<div class="row">
+    <div class="col-md-9 offset-md-1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <h4>Cover</h4>
+                    </th>
+                    <th>
+                        <h4>Book</h4>
+                    </th>
+                    <th>
+                        <h4>Author</h4>
+                    </th>
+                    <th>
+                        <h4>Details</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <div class="row">
+                    @foreach (var book in Model.BooksInStock)
+                    {
+                <tr>
+                    <td>
+                        <img src="@book.ImageThumbnailUrl" alt="@book.BookName" />
+                    </td>
+                    <td>
+                        <h5>@book.BookName</h5>
+                    </td>
+                    <td>
+                        <h5>@book.Author</h5>
+                    </td>
+                    <td>
+                        <a asp-controller="Book" asp-action="Details" asp-route-id="@book.BookID" class="btn btn-sm btn-success">
+                            <i class="fa-solid fa-info"></i>
+                        </a>
+                    </td>
+                </tr>
+                }
+        </div>
+        </tbody>
+        </table>
+    </div>
     </div>
