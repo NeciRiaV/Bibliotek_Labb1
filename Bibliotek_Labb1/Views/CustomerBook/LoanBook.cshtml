@@ -1,0 +1,81 @@
+﻿@model CustomerLogViewModel
+
+<div class="row">
+    <div class="col-md-6 offset-md-2">
+        <form asp-action="AddLoanedBook">
+
+            <div class="form-group">
+                <label asp-for="@Model.CustomerBook.CustomerID" class="control-label"></label>
+                <input asp-for="@Model.CustomerBook.CustomerID" class="from-control" />
+                <span asp-validation-for="@Model.CustomerBook.CustomerID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.CustomerBook.BookID" class="control-label"></label>
+                <input asp-for="@Model.CustomerBook.BookID" class="from-control" />
+                <span asp-validation-for="@Model.CustomerBook.BookID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.CustomerBook.BookBorrowed" class="control-label"></label>
+                <input asp-for="@Model.CustomerBook.BookBorrowed." class="from-control" />
+                <span asp-validation-for="@Model.CustomerBook.BookBorrowed" class="text-danger"></span>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-primary w-100" />
+                    </div>
+                    <div col-md-5>
+                        <a asp-controller="Customer" asp-action="List" class="btn btn-secondary">View All Customers</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <h4>Book ID</h4>
+                    </th>
+                    <th>
+                        <h4>Name</h4>
+                    </th>
+                    <th>
+                        <h4>Author</h4>
+                    </th>
+                    <th>
+                        <h4>Status</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.CustomerLoans)
+                {
+                <tr>
+                    <td>
+                        <h4>@book.Book.BookID</h4>
+                    </td>
+                    <td>
+                        <h4>@book.Book.BookName</h4>
+                    </td>
+                    <td>
+                        <h4>@book.Book.Author</h4>
+                    </td>
+                    <td>
+                        @if (book.Book.IsOnLoan == true)
+                        {
+                            <h5>On Loan</h5>
+                        }
+                        else
+                        {
+                            <h5>In Stock</h5>
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

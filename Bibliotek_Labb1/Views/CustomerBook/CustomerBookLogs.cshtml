@@ -1,0 +1,42 @@
+﻿@model CustomerLogViewModel
+
+<div class="row">
+    <div class="col-md-16 offset-md--2">
+        <h1>Customer Loans</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Loan Date</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var loan in Model.CustomerLoans)
+                {
+                <tr>
+
+                    <td>
+                        <img src="@loan.Book.ImageThumbnailUrl" alt="@loan.Book.BookName" />
+                    </td>
+                    <td>
+                        <p>@loan.Book.BookID</p>
+                    </td>
+                    <td>
+                        <p>@loan.Book.BookName</p>
+                    </td>
+                    <td>
+                        <p>@loan.BookBorrowed.ToString("g")</p>
+                    </td>
+                    <td>
+                        <p>@loan.BookReturned.ToString("g")</p>
+                    </td>
+                </tr>
+                }
+                <a asp-controller="Customer" asp-action="List" class="btn btn-secondary">Return to customer list</a>
+            </tbody>
+        </table>
+    </div>
+</div>

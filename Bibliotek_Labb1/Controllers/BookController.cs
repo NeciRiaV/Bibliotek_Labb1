@@ -20,11 +20,6 @@ namespace Bibliotek_Labb1.Controllers
         public ViewResult List()
         {
             return View(_bookRepository.GetAllBooks);
-            //var homeViewModel = new HomeViewModel
-            //{
-            //    BooksInStock = _bookRepository.GetAllBooks
-            //};
-            //return View(homeViewModel);
         }
 
         public IActionResult Details(int id)

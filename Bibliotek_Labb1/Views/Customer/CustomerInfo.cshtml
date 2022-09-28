@@ -1,12 +1,33 @@
-﻿@model Customer 
+﻿@model CustomerInfoViewModel
 
-<div class="figure-caption">
-    <h3>@Model.CustomerID</h3>
-    <h3>@Model.FullName</h3>
-    <h3>@Model.Adress</h3>
-    <h3>@Model.City</h3>
-    <h3>@Model.ZipCode</h3>
-    <h3>@Model.PhoneNumber</h3>
-    <h3>@Model.Email</h3>
-    <h4><a asp-controller="Customer" asp-action="CustomerBookLog" asp-route-id="@Model.CustomerID">List of books borrowed</a></h4>
+
+<div class="column">
+    <div class="col-md-5 float-left">
+            <h4>Customer Details</h4>
+
+            <h5>@Model.CustomerInfo.CustomerID</h5>
+
+            <h5>@Model.CustomerInfo.FullName</h5>
+
+            <h5>@Model.CustomerInfo.Adress</h5>
+
+            <h5>@Model.CustomerInfo.City</h5>
+
+            <h5>@Model.CustomerInfo.ZipCode</h5>
+
+            <h5>@Model.CustomerInfo.Email</h5>
+
+            <h5>@Model.CustomerInfo.PhoneNumber</h5>
+            <hr>
+            <h4><a asp-controller="CustomerBook" asp-action="CustomerBookLogs" asp-route-id="@Model.CustomerInfo.CustomerID">List of books borrowed</a></h4>
+            <a asp-controller="Customer" asp-action="List" class="btn btn-secondary"><i class="fa-solid fa-arrow-left-long"></i></a>
+</div>
+    <div class="col-md-6 float-left">
+
+        <a asp-controller="Customer" asp-action="DeleteCustomer" asp-route-id="@Model.CustomerInfo.CustomerID">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </a>
+    </div>
 </div>

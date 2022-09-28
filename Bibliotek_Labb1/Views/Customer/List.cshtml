@@ -15,6 +15,9 @@
                     <th>
                         <h4>Details</h4>
                     </th>
+                    <th>
+                        <a asp-controller="Customer" asp-action="CreateCustomer" class="btn btn-sm btn-success"><i class="fa-solid fa-user-plus"></i></a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -28,9 +31,22 @@
                         <h5>@customer.FullName</h5>
                     </td>
                     <td>
-                        <a asp-controller="Customer" asp-action="CustomerInfo" asp-route-id="@customer.CustomerID" class="btn btn-sm btn-success">
-                            <i class="fa-solid fa-info"></i>
+                        <a asp-controller="Customer" asp-action="CustomerInfo" asp-route-id="@customer.CustomerID" class="btn btn-sm btn-info">
+                            Info
                         </a>
+                        <a asp-controller="CustomerBook" asp-action="CustomerBookLogs" asp-route-id="@customer.CustomerID">
+                            <i class="fa-solid fa-book"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Customer" asp-action="UpdateCustomer" asp-route-id="@customer.CustomerID" class="btn btn-sm btn-warning">
+                        <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a asp-controller="Customer" asp-action="DeleteCustomer" asp-route-id="@customer.CustomerID">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </a>
+
                     </td>
                 </tr>
                 }

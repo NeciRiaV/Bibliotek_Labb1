@@ -1,6 +1,7 @@
 ﻿using Bibliotek_Labb1.Models;
 using Bibliotek_Labb1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,11 @@ namespace Bibliotek_Labb1.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
-
-        public CustomerController(ICustomerRepository customerRepository)
+        private readonly AppDbContext _appContext;
+        public CustomerController(ICustomerRepository customerRepository, AppDbContext appContext)
         {
             _customerRepository = customerRepository;
+            _appContext = appContext;
         }
 
         public ViewResult List()
@@ -25,6 +27,43 @@ namespace Bibliotek_Labb1.Controllers
         public IActionResult CustomerInfo(int id)
         {
             var customer = _customerRepository.GetCustomerBytId(id);
+
+            var cInfoViewModel = new CustomerInfoViewModel()
+            {
+                CustomerInfo = customer
+            };
+            return View(cInfoViewModel);
+        }
+
+        //Add New Customer
+        [HttpPost]
+        public async Task<ActionResult<Customer>> AddCustomer(Customer customer)
+        {
+            var newCustomer = await _customerRepository.Add(customer);
+            CreatedAtAction(nameof(CustomerInfo), new { id = customer.CustomerID }, newCustomer);
+            return View();
+        }
+
+        public IActionResult CreateCustomer()
+        {
+            return View("AddCustomer");
+        }
+
+        //Edit Customer
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCustomer(Customer customer)
+        {
+            _appContext.Update(customer);
+            _appContext.SaveChanges();
+            return RedirectToAction(nameof(List));
+
+        }
+
+        public IActionResult UpdateCustomer(int id)
+        {
+            var customer = _customerRepository.GetCustomerBytId(id);
             if (customer == null)
             {
                 return NotFound();
@@ -32,40 +71,12 @@ namespace Bibliotek_Labb1.Controllers
             return View(customer);
         }
 
-        //public IActionResult CustomerBookLog(int id)
-        //{
-        //    var cus = _customerRepository.GetCustomerBytId(id);
-        //    var customerlogViewModel = new CustomerLogViewModel
-        //    {
-        //        GetCustomer = _customerRepository.GetCustomerBytId(id),
-        //        GetCustomerLog = _customerRepository.
-        //    };
-        //    var customer = _customerRepository.GetCustomerLogById(id);
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(customer);
-        //}
 
-        public IActionResult Add(int id)
+        //Delete Customer Controller
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            if (id == 0)
-            {
-                return View(new Customer());
-            }
-            else
-            {
-                return View(_customerRepository.GetCustomerBytId(id));
-            }
+            await _customerRepository.Delete(id);
+            return View();
         }
-
-        //public IActionResult EditEmployee()
-        //{
-        //    if (true)
-        //    {
-
-        //    }
-        //}
     }
 }

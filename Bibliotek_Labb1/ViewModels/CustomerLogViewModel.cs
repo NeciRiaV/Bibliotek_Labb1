@@ -9,5 +9,8 @@ namespace Bibliotek_Labb1.ViewModels
     public class CustomerLogViewModel
     {
         public IEnumerable<CustomerBook> CustomerLoans { get; set; }
+        public Customer Customer { get; set; }
+        public Book Book { get; set; }
+        public CustomerBook CustomerBook { get; set; }
     }
 }

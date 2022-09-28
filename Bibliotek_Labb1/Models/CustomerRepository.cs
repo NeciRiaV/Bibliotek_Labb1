@@ -22,44 +22,37 @@ namespace Bibliotek_Labb1.Models
 
             }
         }
-        
-        public async Task<Customer> AddCustomer(Customer customer)
+
+        //Add Customer
+        public async Task<Customer> Add(Customer customer)
         {
-            var newCustomer = await _appDbContext.Customers.AddAsync(customer);
+            var result = await _appDbContext.Customers.AddAsync(customer);
             await _appDbContext.SaveChangesAsync();
-            return newCustomer.Entity;
+            return result.Entity;
         }
 
-        public async Task<Customer> DeleteCustomer(int customerid)
+        //Edit Customer
+        public async Task<Customer> Edit(Customer customer)
         {
-            var deletedCustomer = await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == customerid);
-            if (deletedCustomer != null)
-            {
-                _appDbContext.Remove(deletedCustomer);
-                await _appDbContext.SaveChangesAsync();
-                return deletedCustomer;
-            }
-            return null;
+            _appDbContext.Customers.Update(customer);
+            await _appDbContext.SaveChangesAsync();
+            return customer;
         }
 
-        public async Task<Customer> EditCustomer(Customer customer)
+        //Delete Customer
+        public async Task<Customer> Delete(int id)
         {
-            var result = await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == customer.CustomerID);
-            if (result != null)
+            var deleteCustomer = await _appDbContext.Customers.FindAsync(id);
+            if (deleteCustomer != null)
             {
-                result.FullName = customer.FullName;
-                result.Email = customer.Email;
-                result.PhoneNumber = customer.PhoneNumber;
-                result.Adress = customer.Adress;
-                result.City = customer.City;
-                result.ZipCode = customer.ZipCode;
-
+                _appDbContext.Customers.Remove(deleteCustomer);
                 await _appDbContext.SaveChangesAsync();
-                return result;
             }
-            return null;
+            return deleteCustomer;
+
         }
 
+        //Get Single Customer
         public Customer GetCustomerBytId(int customerid)
         {
             return _appDbContext.Customers.FirstOrDefault(c => c.CustomerID == customerid);
@@ -74,15 +67,5 @@ namespace Bibliotek_Labb1.Models
         }
 
 
-        //public IEnumerable<Customer> GetCustomerLogById(int customerid)
-        //{
-        //    IQueryable<Customer> customer = _appDbContext.Customers.Include(cb => cb.CustomerBook).Where(cb => cb.CustomerID == customerid);
-        //    if (!customer.Equals(customerid))
-        //    {
-        //        customer = customer.Where(c => c.CustomerID == customerid);
-
-        //    }
-        //    return customer.ToList();
-        //}
     }
 }

@@ -21,12 +21,6 @@ namespace Bibliotek_Labb1.Models
             }
         }
 
-        //public async Task<IEnumerable<Book>> GetAllBooksInStock()
-        //{
-        //    IQueryable<Book> instock = _appDbContext.Books.Where(b => b.IsOnLoan == false);
-        //    return await instock.ToListAsync();
-        //}
-
         public IEnumerable<Book> GetAllBooksInStock
         {
             get

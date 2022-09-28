@@ -21,5 +21,18 @@ namespace Bibliotek_Labb1.Models
              return _appDbContext.CustomerBooks;
             }
         }
+
+        public CustomerBook GetCustomerBookByID(int id)
+        {
+            return _appDbContext.CustomerBooks.FirstOrDefault(cb => cb.CustomerBookID == id);
+        }
+
+        public async Task<CustomerBook> Add(CustomerBook customerBook)
+        {
+            var result = await _appDbContext.CustomerBooks.AddAsync(customerBook);
+            await _appDbContext.SaveChangesAsync();
+            return result.Entity;
+        }
+
     }
 }

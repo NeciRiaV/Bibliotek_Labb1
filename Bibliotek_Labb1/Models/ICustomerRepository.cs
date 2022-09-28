@@ -9,9 +9,10 @@ namespace Bibliotek_Labb1.Models
     {
         IEnumerable<Customer> GetAllCustomers { get; }
         Customer GetCustomerBytId(int customerid);
-        Task<Customer> AddCustomer(Customer customer);
-        Task<Customer> DeleteCustomer(int customerid);
-        Task<Customer> EditCustomer(Customer customer);
+        Task<Customer> Add(Customer customer);
+        Task<Customer> Edit(Customer customer);
+        Task<Customer> Delete(int id);
+        //Task<Customer> EditCustomer(Customer customer);
         //IEnumerable<Customer> GetCustomerLogById(int customer);
     }
 }
